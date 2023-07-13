@@ -16,7 +16,7 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">DER TETRIS</h1>
+          <h2 className="App-title">DeR Tetris</h2>
         </header>
         <GridBoard />
         <NextBlock />
