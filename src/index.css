@@ -11,3 +11,81 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #969696;
+
+  --color-0: #eaeaea;
+  --color-1: #ff6600;
+  --color-2: #eec900;
+  --color-3: #0000ff;
+  --color-4: #cc00ff;
+  --color-5: #00ff00;
+  --color-6: #66ccff;
+  --color-7: #ff0000;
+
+  --button-color-t: rgba(200, 200, 200, 1);
+  --button-color-r: rgba(150, 150, 150, 1);
+  --button-color-b: rgba(120, 120, 120, 1);
+  --button-color-l: rgba(222, 222, 222, 1);
+
+  --cols: 10;
+  --rows: 18;
+  --tile-size: 20px;
+  --border-width: 5px;
+}
+
+.color-0 {
+  background-color: var(--color-0);
+}
+
+.color-1 {
+  background-color: var(--color-1);
+}
+
+.color-2 {
+  background-color: var(--color-2);
+}
+
+.color-3 {
+  background-color: var(--color-3);
+}
+
+.color-4 {
+  background-color: var(--color-4);
+}
+
+.color-5 {
+  background-color: var(--color-5);
+}
+
+.color-6 {
+  background-color: var(--color-6);
+}
+
+.color-7 {
+  background-color: var(--color-7);
+}
+
+.grid-square {
+  width: var(--tile-size);
+  height: var(--tile-size);
+  border-width: var(--border-width);
+}
+
+.grid-board {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--tile-size));
+  grid-gap: 0;
+  align-self: flex-start;
+}
+
+.next-block {
+  display: grid;
+  grid-template-columns: repeat(4, var(--tile-size));
+  align-self: flex-start;
+}
