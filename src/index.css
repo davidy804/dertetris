@@ -28,11 +28,6 @@ code {
   --color-6: #66ccff;
   --color-7: #ff0000;
 
-  --button-color-t: rgba(200, 200, 200, 1);
-  --button-color-r: rgba(150, 150, 150, 1);
-  --button-color-b: rgba(120, 120, 120, 1);
-  --button-color-l: rgba(222, 222, 222, 1);
-
   --cols: 10;
   --rows: 18;
   --tile-size: 20px;
@@ -71,6 +66,28 @@ code {
   background-color: var(--color-7);
 }
 
+.App {
+  --col-side: calc(var(--tile-size) * 4);
+  --col-center: calc(var(--tile-size) * 10);
+  --grid-height: calc(var(--tile-size) * 18);
+
+  width: calc(var(--tile-size) * (4 + 1 + 10 + 1 + 4));
+  margin: auto;
+  display: grid;
+
+  grid-gap: var(--tile-size) var(--tile-size);
+  grid-template-columns: var(--col-side) var(--col-center) var(--col-side);
+  grid-template-rows: 100px var(--grid-height) 100px;
+
+  grid-template-areas: "h h h"
+                       "r c l"
+                       ". b .";
+}
+
+.App-header {
+  grid-area: h;
+}
+
 .grid-square {
   width: var(--tile-size);
   height: var(--tile-size);
@@ -82,10 +99,51 @@ code {
   grid-template-columns: repeat(var(--cols), var(--tile-size));
   grid-gap: 0;
   align-self: flex-start;
+  grid-area: c;
 }
 
 .next-block {
   display: grid;
   grid-template-columns: repeat(4, var(--tile-size));
   align-self: flex-start;
+  grid-area: l;
 }
+
+.score-board {
+  grid-area: r;
+}
+
+.score-board-button {
+  display: block;
+  padding: 1em;
+}
+
+.controls {
+  grid-area: b;
+  display: flex;
+  flex-direction: row;
+}
+
+.control-button {
+  --size: calc(var(--tile-size) * 2.5);
+  width: var(--size);
+  height: var(--size);
+  text-align: center;
+  display: block;
+}
+
+.message-popup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--tile-size) * 10);
+  height: calc(var(--tile-size) * 10);
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.message-popup.hidden {
+  display: none;
+}
+
