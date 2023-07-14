@@ -22,6 +22,7 @@ function App() {
         <NextBlock />
         <ScoreBoard />
         <Controls />
+        <MessagePopup />
       </div>
     </Provider>
   );

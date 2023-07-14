@@ -91,7 +91,7 @@ code {
 .grid-square {
   width: var(--tile-size);
   height: var(--tile-size);
-  border-width: var(--border-width);
+  border: solid 1px #eaeaea;
 }
 
 .grid-board {
@@ -111,6 +111,8 @@ code {
 
 .score-board {
   grid-area: r;
+  display: flex;
+  flex-direction: column;
 }
 
 .score-board-button {
