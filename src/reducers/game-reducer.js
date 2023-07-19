@@ -1,8 +1,9 @@
-import { MOVE_RIGHT, MOVE_LEFT, MOVE_DOWN, ROTATE, PAUSE, RESUME, RESTART, GAME_OVER } from '../actions'
-import { defaultState, nextRotation, canMoveTo, addBlockToGrid, checkRows, randomShape } from '../utils'
+import { MOVE_RIGHT, MOVE_LEFT, MOVE_DOWN, DROP, ROTATE, PAUSE, RESUME, RESTART, GAME_OVER } from '../actions'
+import { defaultState, nextRotation, canMoveTo, addBlockToGrid, checkRows, randomShape, hardDrop, checkLevel } from '../utils'
+
 
 const gameReducer = (state = defaultState(), action) => {
-    const { shape, grid, x, y, rotation, nextShape, score, isRunning } = state
+    const { shape, grid, x, y, rotation, nextShape, score, level, isRunning } = state
 
     switch (action.type) {
         case ROTATE:
@@ -37,6 +38,7 @@ const gameReducer = (state = defaultState(), action) => {
             newState.shape = nextShape
             newState.nextShape = randomShape()
             newState.score = score
+            newState.level = level
             newState.isRunning = isRunning
 
             if (gameOver) {
@@ -47,7 +49,14 @@ const gameReducer = (state = defaultState(), action) => {
             }
             
             newState.score = score + checkRows(newGrid)
+            checkLevel(newState)
             return newState
+        
+        case DROP:
+            const dropY = hardDrop(shape, grid, x, y, rotation)
+            if (canMoveTo(shape, grid, x, dropY, rotation)) {
+                return { ...state, y: dropY }
+            }
 
         case RESUME:
             return { ...state, isRunning: true }

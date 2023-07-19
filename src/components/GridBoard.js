@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import GridSquare from './GridSquare'
 import { useSelector, useDispatch } from 'react-redux'
 import { shapes } from '../utils'
-import { moveLeft, moveRight, moveDown, rotate } from '../actions'
+import { moveLeft, moveRight, moveDown, drop, rotate, pause, resume, restart } from '../actions'
 
 export default function GridBoard(props) {
     const game = useSelector((state) => state.game)
@@ -25,6 +25,7 @@ export default function GridBoard(props) {
             return <GridSquare key={k} color={color} />
         })
     })
+
     const update = (time) => {
         requestRef.current = requestAnimationFrame(update)
         if (!isRunning) {
@@ -41,19 +42,57 @@ export default function GridBoard(props) {
         }
         lastUpdateTimeRef.current = time
     }
+
     useEffect(() => {
         requestRef.current = requestAnimationFrame(update)
         return () => cancelAnimationFrame(requestRef.current)
     }, [isRunning])
 
+    const handleKeyDown = event => {
+        switch (event.key) {
+            case 'ArrowLeft':
+                event.preventDefault();
+                dispatch(moveLeft());
+                break;
+            case 'ArrowUp':
+                event.preventDefault();
+                dispatch(rotate());
+                break;
+            case 'ArrowRight':
+                event.preventDefault();
+                dispatch(moveRight());
+                break;
+            case 'ArrowDown':
+                event.preventDefault();
+                dispatch(moveDown());
+                break;
+            case ' ':
+                event.preventDefault();
+                dispatch(drop());
+                dispatch(moveDown());
+                break;
+            case 'Escape':
+                event.preventDefault();
+                if (isRunning) {
+                    dispatch(pause())
+                } else {
+                    dispatch(resume())
+                }
+                break;
+            case 'r':
+                event.preventDefault();
+                dispatch(restart());
+                break;
+        }
+    }
+
     useEffect(() => {
-        window.addEventListener('keydown', e => {
-            if (e.key === 'ArrowLeft') { dispatch(moveLeft()) }
-            if (e.key === 'ArrowUp') { dispatch(rotate()) }
-            if (e.key === 'ArrowRight') { dispatch(moveRight()) }
-            if (e.key === 'ArrowDown') { dispatch(moveDown()) }
-        })
-    }, [isRunning])
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        }
+    })
 
     return (
         <div className='grid-board'>

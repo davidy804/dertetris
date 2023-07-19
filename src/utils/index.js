@@ -36,24 +36,24 @@ export const shapes = [
       [0,0,0,0]]],
   
     // T
-    [[[0,0,1,0],
+    [[[0,0,0,0],
+      [0,1,0,0],
+      [1,1,1,0],
+      [0,0,0,0]],
+  
+     [[0,1,0,0],
       [0,1,1,0],
-      [0,0,1,0],
-      [0,0,0,0]],
-  
-     [[0,0,1,0],
-      [0,1,1,1],
-      [0,0,0,0],
-      [0,0,0,0]],
-  
-     [[0,0,1,0],
-      [0,0,1,1],
-      [0,0,1,0],
+      [0,1,0,0],
       [0,0,0,0]],
   
      [[0,0,0,0],
-      [0,1,1,1],
-      [0,0,1,0],
+      [1,1,1,0],
+      [0,1,0,0],
+      [0,0,0,0]],
+  
+     [[0,1,0,0],
+      [1,1,0,0],
+      [0,1,0,0],
       [0,0,0,0]]],
   
     // L
@@ -137,11 +137,12 @@ export const defaultState = () => {
         shape: randomShape(),
         rotation: 0,
         x: 3,
-        y: -4,
+        y: -2,
         nextShape: randomShape(),
         isRunning: true,
         score: 0,
         speed: 1000,
+        level: 1,
         gameOver: false
     }
 }
@@ -195,6 +196,13 @@ export const addBlockToGrid = (shape, grid, x, y, rotation) => {
     return { grid: newGrid, gameOver: blockOffGrid }
 }
 
+export const hardDrop = (shape, grid, x, y, rotation) => {
+    while (canMoveTo(shape, grid, x, y, rotation)) {
+        y += 1
+    }
+    return y - 1
+}
+
 export const checkRows = (grid) => {
     const points = [0, 40, 100, 300, 1200]
     let completedRows = 0
@@ -207,4 +215,34 @@ export const checkRows = (grid) => {
         }
     }
     return points[completedRows]
+}
+
+export const checkLevel = (newState) => {
+    if (newState.score >= 2000) {
+        newState.level = 2
+    }
+    if (newState.score >= 4000) {
+        newState.level = 3
+    }
+    if (newState.score >= 6000) {
+        newState.level = 4
+    }
+    if (newState.score >= 8000) {
+        newState.level = 5
+    }
+    if (newState.score >= 10000) {
+        newState.level = 6
+    }
+    if (newState.score >= 12000) {
+        newState.level = 7
+    }
+    if (newState.score >= 14000) {
+        newState.level = 8
+    }
+    if (newState.score >= 16000) {
+        newState.level = 9
+    }
+    if (newState.score >= 18000) {
+        newState.level = 10
+    }
 }
