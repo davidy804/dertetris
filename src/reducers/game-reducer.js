@@ -3,7 +3,7 @@ import { defaultState, nextRotation, canMoveTo, addBlockToGrid, checkRows, rando
 
 
 const gameReducer = (state = defaultState(), action) => {
-    const { shape, grid, x, y, rotation, nextShape, score, level, isRunning } = state
+    const { shape, grid, x, y, rotation, nextShape, score, level, lines, isRunning } = state
 
     switch (action.type) {
         case ROTATE:
@@ -39,6 +39,7 @@ const gameReducer = (state = defaultState(), action) => {
             newState.nextShape = randomShape()
             newState.score = score
             newState.level = level
+            newState.lines = lines
             newState.isRunning = isRunning
 
             if (gameOver) {
@@ -48,7 +49,8 @@ const gameReducer = (state = defaultState(), action) => {
                 return { ...state, gameOver: true }
             }
             
-            newState.score = score + checkRows(newGrid)
+            newState.lines = lines + checkRows(newGrid)
+            newState.score = newState.lines * 40
             checkLevel(newState)
             return newState
         

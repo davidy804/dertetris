@@ -143,6 +143,7 @@ export const defaultState = () => {
         score: 0,
         speed: 1000,
         level: 1,
+        lines: 0,
         gameOver: false
     }
 }
@@ -204,7 +205,6 @@ export const hardDrop = (shape, grid, x, y, rotation) => {
 }
 
 export const checkRows = (grid) => {
-    const points = [0, 40, 100, 300, 1200]
     let completedRows = 0
 
     for (let row = 0; row < grid.length; row++) {
@@ -214,35 +214,35 @@ export const checkRows = (grid) => {
             grid.unshift(Array(10).fill(0))
         }
     }
-    return points[completedRows]
+    return completedRows
 }
 
 export const checkLevel = (newState) => {
-    if (newState.score >= 2000) {
+    if (newState.score >= 400) {
         newState.level = 2
     }
-    if (newState.score >= 4000) {
+    if (newState.score >= 800) {
         newState.level = 3
     }
-    if (newState.score >= 6000) {
+    if (newState.score >= 1200) {
         newState.level = 4
     }
-    if (newState.score >= 8000) {
+    if (newState.score >= 1600) {
         newState.level = 5
     }
-    if (newState.score >= 10000) {
+    if (newState.score >= 2000) {
         newState.level = 6
     }
-    if (newState.score >= 12000) {
+    if (newState.score >= 2400) {
         newState.level = 7
     }
-    if (newState.score >= 14000) {
+    if (newState.score >= 2800) {
         newState.level = 8
     }
-    if (newState.score >= 16000) {
+    if (newState.score >= 3200) {
         newState.level = 9
     }
-    if (newState.score >= 18000) {
+    if (newState.score >= 3600) {
         newState.level = 10
     }
 }
