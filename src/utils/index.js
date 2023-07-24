@@ -220,29 +220,38 @@ export const checkRows = (grid) => {
 export const checkLevel = (newState) => {
     if (newState.score >= 400) {
         newState.level = 2
+        newState.speed = 900
     }
     if (newState.score >= 800) {
         newState.level = 3
+        newState.speed = 800
     }
     if (newState.score >= 1200) {
         newState.level = 4
+        newState.speed = 700
     }
     if (newState.score >= 1600) {
         newState.level = 5
+        newState.speed = 600
     }
     if (newState.score >= 2000) {
         newState.level = 6
+        newState.speed = 500
     }
     if (newState.score >= 2400) {
         newState.level = 7
+        newState.speed = 400
     }
     if (newState.score >= 2800) {
         newState.level = 8
+        newState.speed = 300
     }
     if (newState.score >= 3200) {
         newState.level = 9
+        newState.speed = 200
     }
     if (newState.score >= 3600) {
         newState.level = 10
+        newState.speed = 100
     }
 }

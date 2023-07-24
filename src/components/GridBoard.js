@@ -46,7 +46,7 @@ export default function GridBoard(props) {
     useEffect(() => {
         requestRef.current = requestAnimationFrame(update)
         return () => cancelAnimationFrame(requestRef.current)
-    }, [isRunning])
+    }, [isRunning, speed])
 
     const handleKeyDown = event => {
         switch (event.key) {
